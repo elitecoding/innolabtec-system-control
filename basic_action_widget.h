@@ -3,11 +3,12 @@
 
 #include<QWidget>
 #include<QLabel>
+#include<QSize>
 #include<stdio.h>
 #include<string>
 #include "basic_action.h"
 
-class basic_action_widget : public QWidget,public basic_action
+class basic_action_widget : public QWidget, public basic_action
 {
     Q_OBJECT
 
@@ -16,7 +17,8 @@ class basic_action_widget : public QWidget,public basic_action
 public:
     explicit basic_action_widget(QWidget *parent = 0,std::string="");
 protected:
-    //void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
+    QSize sizeHint() const;
 
 signals:
 
@@ -24,4 +26,4 @@ public slots:
 
 };
 
-#endif // ACTION_WIDGET_H
+#endif // BASIC_ACTION_WIDGET_H
