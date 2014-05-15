@@ -5,7 +5,7 @@ basic_action::basic_action()
 {
     std::cout<<"basic_action ctor"<<std::endl;
 }
-basic_action::basic_action(std::string n):name(n)
+basic_action::basic_action(std::string n,action_connection_manager_iface* mgr):name(n),next(0),conManager(mgr)
 {
     std::cout<<"basic_action ctor. Name: "<<name<<std::endl;
 }

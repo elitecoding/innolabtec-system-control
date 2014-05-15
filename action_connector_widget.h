@@ -2,7 +2,7 @@
 #define ACTION_CONNECTOR_WIDGET_H
 
 #include <QWidget>
-#include<QPainter>
+#include <QPainter>
 #include "action_connector.h"
 
 class action_connector_widget : public QWidget,action_connector
@@ -19,8 +19,6 @@ public:
     inline void setTo(QPoint p){this->to=p;}
     inline QPoint getFrom() const {return this->from;}
     inline QPoint getTo() const {return this->to;}
-    void paintEvent(QPaintEvent *);
-
 signals:
 
 public slots:

@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     basic_action_widget.cpp \
     param_action.cpp \
     action_connector.cpp \
-    action_connector_widget.cpp
+    action_connector_widget.cpp \
+    action_container_widget.cpp \
+    qt_action.cpp
 
 HEADERS  += mainwindow.h \
     point_3d.h \
@@ -31,6 +33,9 @@ HEADERS  += mainwindow.h \
     basic_action_widget.h \
     param_action.h \
     action_connector.h \
-    action_connector_widget.h
+    action_connector_widget.h \
+    action_container_widget.h \
+    qt_action.h \
+    action_connection_manager_iface.h
 
 FORMS    += mainwindow.ui
