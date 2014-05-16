@@ -7,6 +7,7 @@
 #include "action_connection_manager_iface.h"
 #include <list>
 #include <QPoint>
+#include "innox.h"
 
 class action_container_widget : public QWidget,action_connection_manager_iface
 {
@@ -18,6 +19,7 @@ class action_container_widget : public QWidget,action_connection_manager_iface
     std::list<action_connector_widget*> connections;
     action_connector* pendingConnection;
     bool connectionStarted;
+    innox* innoxControl;
 
 public:
     explicit action_container_widget(QWidget *parent = 0);
@@ -28,9 +30,9 @@ public:
     //void mouseReleaseEvent(QMouseEvent *);
 
     //Connection Manager
-    void startConnection(action_iface*);
-    void stopConnection(action_iface*);
-    void connect(action_iface*);
+    void startConnection(basic_action_widget*);
+    void stopConnection(basic_action_widget*);
+    void connect(basic_action_widget*);
 signals:
 
 public slots:

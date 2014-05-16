@@ -7,15 +7,18 @@
 #include "action_connector.h"
 #include "action_connection_manager_iface.h"
 
+typedef void (*actionPtr)(void);
+
 class basic_action: public action_iface
 {
     std::string name;
     action_connector* next;
     action_connection_manager_iface* conManager;
+    actionPtr action;
 
 public:
     basic_action();
-    basic_action(std::string,action_connection_manager_iface*);
+    basic_action(std::string,action_connection_manager_iface*,actionPtr);
     void execute();
     inline void setNext(action_connector* next){this->next = next;}
     inline std::string getName(){return name;}

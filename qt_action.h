@@ -8,12 +8,13 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPainter>
+#include <string>
 
 class qt_action : public QWidget
 {
     Q_OBJECT
 public:
-    explicit qt_action(QWidget *parent = 0);
+    explicit qt_action(std::string name,QWidget *parent = 0);
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
 

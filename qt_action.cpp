@@ -1,7 +1,8 @@
 #include "qt_action.h"
 #include <iostream>
-qt_action::qt_action(QWidget *parent) :
-    QWidget(parent),qlName("qt Action"),qvContainer(this)
+#include <QString>
+qt_action::qt_action(std::string name,QWidget *parent) :
+    QWidget(parent),qlName(name.c_str()),qvContainer(this)
 {
     this->qvContainer.addWidget(&qlName);
 }

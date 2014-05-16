@@ -1,12 +1,16 @@
 #include "action_container_widget.h"
-
+#include <math.h>
 action_container_widget::action_container_widget(QWidget *parent) :
     QWidget(parent)
 {
     this->drawConnection = false;
     this->connectionStarted = false;
-    basic_action_widget* action = new basic_action_widget(this,"Action 1",this);
+
+    basic_action_widget* action = new basic_action_widget(this,"Action 1",this,&innox::closeGripper);
+    basic_action_widget* action2 = new basic_action_widget(this,"Action 1",this,&innox::openGripper);
+    action->execute();
     action->move(100,100);
+    action2->move(400,100);
 }
 void action_container_widget::attacheConnection(basic_action *action)
 {
@@ -41,6 +45,7 @@ void action_container_widget::mouseMoveEvent(QMouseEvent *event)
 }
 void action_container_widget::mousePressEvent(QMouseEvent *event)
 {
+    /*
     if(drawConnection)
     {
         drawConnection = false;
@@ -52,7 +57,7 @@ void action_container_widget::mousePressEvent(QMouseEvent *event)
     {
         this->startPoint = event->pos();
         this->drawConnection = true;
-    }
+    }*/
 }
 /*
 void action_container_widget::mouseReleaseEvent(QMouseEvent *event)
@@ -69,20 +74,33 @@ void action_container_widget::mouseReleaseEvent(QMouseEvent *event)
 
     }
 }*/
-void action_container_widget::stopConnection(action_iface* to)
+void action_container_widget::stopConnection(basic_action_widget* to)
 {
     if(this->pendingConnection!=0)
     {
         this->pendingConnection->setTo(to);
         this->pendingConnection->getFrom()->setNext(this->pendingConnection);
+        QPoint dir = to->pos()-this->startPoint;
+        dir = dir/sqrt( pow(dir.x(),2)+pow(dir.y(),2));
+        this->startPoint-=dir;
+
+         QPoint sub(to->width()/2,to->height()/2);
+        //Why not just keep the references in the actions and while rendering just process all actions and draw each connection?
+        //this->connections.push_back(new action_connector_widget(0,this->startPoint,to->pos()-dir+sub));
+         this->connections.push_back(new action_connector_widget(0,this->startPoint,to->pos()-dir+sub));
+        this->update();
     }
 }
-void action_container_widget::startConnection(action_iface* from)
+void action_container_widget::startConnection(basic_action_widget* from)
 {
     this->pendingConnection = new action_connector();
     this->pendingConnection->setFrom(from);
+
+    this->startPoint = from->pos();
+    QPoint sub(from->width()/2,from->height()/2);
+    this->startPoint+=sub;
 }
-void action_container_widget::connect(action_iface* action)
+void action_container_widget::connect(basic_action_widget* action)
 {
     if(connectionStarted)
     {

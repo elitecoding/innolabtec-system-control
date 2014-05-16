@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     action_connector.cpp \
     action_connector_widget.cpp \
     action_container_widget.cpp \
-    qt_action.cpp
+    qt_action.cpp \
+    innox.cpp
 
 HEADERS  += mainwindow.h \
     point_3d.h \
@@ -36,6 +37,7 @@ HEADERS  += mainwindow.h \
     action_connector_widget.h \
     action_container_widget.h \
     qt_action.h \
-    action_connection_manager_iface.h
+    action_connection_manager_iface.h \
+    innox.h
 
 FORMS    += mainwindow.ui

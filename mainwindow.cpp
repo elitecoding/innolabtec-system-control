@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     setMouseTracking(true);
-    //grabMouse();
+
     action_container_widget* container = new action_container_widget(0);
     this->ui->verticalLayout->addWidget(container);
 }

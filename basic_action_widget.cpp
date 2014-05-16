@@ -1,10 +1,10 @@
 #include "basic_action_widget.h"
 #include<QPainter>
 #include <iostream>
-#include "action_container_widget.h"
+#include "action_connection_manager_iface.h"
 
-basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_connection_manager_iface* conmgr):
-    qt_action(parent),basic_action(n,conmgr)
+basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_connection_manager_iface* conmgr,actionPtr ptr):
+    qt_action(n,parent),basic_action(n,conmgr,ptr)
 {
 
 }
