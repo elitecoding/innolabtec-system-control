@@ -10,10 +10,13 @@ class action_connection_manager_iface;
 
 class basic_action_widget : public qt_action, public basic_action
 {
+    bool isDragging;
+    QPoint dragStart;
 public:
     basic_action_widget(QWidget* parent,std::string name,action_connection_manager_iface*, actionPtr);
     void mouseReleaseEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
 
 };
 

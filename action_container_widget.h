@@ -14,16 +14,21 @@ class action_container_widget : public QWidget,action_connection_manager_iface
     Q_OBJECT
 
     bool drawConnection;
+
     QPoint startPoint;
     QPoint stopPoint;
+
     std::list<action_connector_widget*> connections;
-    action_connector* pendingConnection;
+
+    action_connector_widget* pendingConnection;
+
     bool connectionStarted;
+
     innox* innoxControl;
 
 public:
     explicit action_container_widget(QWidget *parent = 0);
-    void attacheConnection(basic_action* action);
+    void attacheConnection(basic_action_widget* action);
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

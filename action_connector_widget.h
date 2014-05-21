@@ -3,26 +3,21 @@
 
 #include <QWidget>
 #include <QPainter>
-#include "action_connector.h"
+#include "basic_action_widget.h"
 
-class action_connector_widget : public QWidget,action_connector
+class action_connector_widget
 {
-    Q_OBJECT
 
-    QPoint from;
-    QPoint to;
+    basic_action_widget* from;
+    basic_action_widget* to;
 
 public:
-    explicit action_connector_widget(QWidget *parent = 0);
-    explicit action_connector_widget(QWidget *parent,QPoint from,QPoint to);
-    inline void setFrom(QPoint p){this->from=p;}
-    inline void setTo(QPoint p){this->to=p;}
-    inline QPoint getFrom() const {return this->from;}
-    inline QPoint getTo() const {return this->to;}
-signals:
-
-public slots:
-
+    action_connector_widget();
+    explicit action_connector_widget(basic_action_widget* from,basic_action_widget* to);
+    inline void setFrom(basic_action_widget* p){this->from=p;}
+    inline void setTo(basic_action_widget* p){this->to=p;}
+    inline basic_action_widget* getFrom() const {return this->from;}
+    inline basic_action_widget* getTo() const {return this->to;}
 };
 
 #endif // ACTION_CONNECTOR_WIDGET_H

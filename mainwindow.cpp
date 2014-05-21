@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     action_container_widget* container = new action_container_widget(0);
     this->ui->verticalLayout->addWidget(container);
+
+    connect(menuBar()->addMenu("File")->addAction("Exit",this,""), SIGNAL(triggered()), this, SLOT(exit()));
 }
 
 
@@ -22,4 +24,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+void MainWindow::exit()
+{
+    this->close();
+}
+void MainWindow::addAction()
+{
+
 }

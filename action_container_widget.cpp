@@ -12,7 +12,7 @@ action_container_widget::action_container_widget(QWidget *parent) :
     action->move(100,100);
     action2->move(400,100);
 }
-void action_container_widget::attacheConnection(basic_action *action)
+void action_container_widget::attacheConnection(basic_action_widget *action)
 {
     //action->next =
 }
@@ -29,7 +29,7 @@ void action_container_widget::paintEvent(QPaintEvent *)
     for(iter = this->connections.begin();iter != this->connections.end();iter++)
     {
         action_connector_widget* con = (action_connector_widget*)(*iter);
-        paint.drawLine(con->getFrom(),con->getTo());
+        paint.drawLine(con->getFrom()->pos(),con->getTo()->pos());
     }
 }
 
@@ -79,21 +79,21 @@ void action_container_widget::stopConnection(basic_action_widget* to)
     if(this->pendingConnection!=0)
     {
         this->pendingConnection->setTo(to);
-        this->pendingConnection->getFrom()->setNext(this->pendingConnection);
+        this->pendingConnection->getFrom()->setNext(to);
         QPoint dir = to->pos()-this->startPoint;
         dir = dir/sqrt( pow(dir.x(),2)+pow(dir.y(),2));
         this->startPoint-=dir;
 
-         QPoint sub(to->width()/2,to->height()/2);
+        QPoint sub(to->width()/2,to->height()/2);
         //Why not just keep the references in the actions and while rendering just process all actions and draw each connection?
         //this->connections.push_back(new action_connector_widget(0,this->startPoint,to->pos()-dir+sub));
-         this->connections.push_back(new action_connector_widget(0,this->startPoint,to->pos()-dir+sub));
+        this->connections.push_back(new action_connector_widget(this->pendingConnection->getFrom(),to));
         this->update();
     }
 }
 void action_container_widget::startConnection(basic_action_widget* from)
 {
-    this->pendingConnection = new action_connector();
+    this->pendingConnection = new action_connector_widget();
     this->pendingConnection->setFrom(from);
 
     this->startPoint = from->pos();
