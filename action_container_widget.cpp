@@ -11,6 +11,7 @@ action_container_widget::action_container_widget(QWidget *parent) :
     action->execute();
     action->move(100,100);
     action2->move(400,100);
+    this->resize(800,600);
 }
 void action_container_widget::attacheConnection(basic_action_widget *action)
 {
@@ -24,13 +25,14 @@ void action_container_widget::paintEvent(QPaintEvent *)
         paint.drawLine(startPoint,stopPoint);
     }
 
+    /*
     std::list<action_connector_widget*>::iterator iter;
 
     for(iter = this->connections.begin();iter != this->connections.end();iter++)
     {
         action_connector_widget* con = (action_connector_widget*)(*iter);
         paint.drawLine(con->getFrom()->pos(),con->getTo()->pos());
-    }
+    }*/
 }
 
 void action_container_widget::mouseMoveEvent(QMouseEvent *event)
@@ -45,19 +47,8 @@ void action_container_widget::mouseMoveEvent(QMouseEvent *event)
 }
 void action_container_widget::mousePressEvent(QMouseEvent *event)
 {
-    /*
-    if(drawConnection)
-    {
-        drawConnection = false;
-        this->stopPoint = event->pos();
-        action_connector_widget* con = new action_connector_widget(this,this->startPoint,this->stopPoint);
-        this->connections.push_back(con);
-        this->update();
-    }else
-    {
-        this->startPoint = event->pos();
-        this->drawConnection = true;
-    }*/
+    this->pendingConnection = 0;
+    this->connectionStarted = false;
 }
 /*
 void action_container_widget::mouseReleaseEvent(QMouseEvent *event)
@@ -78,27 +69,26 @@ void action_container_widget::stopConnection(basic_action_widget* to)
 {
     if(this->pendingConnection!=0)
     {
-        this->pendingConnection->setTo(to);
         this->pendingConnection->getFrom()->setNext(to);
-        QPoint dir = to->pos()-this->startPoint;
-        dir = dir/sqrt( pow(dir.x(),2)+pow(dir.y(),2));
-        this->startPoint-=dir;
 
-        QPoint sub(to->width()/2,to->height()/2);
-        //Why not just keep the references in the actions and while rendering just process all actions and draw each connection?
-        //this->connections.push_back(new action_connector_widget(0,this->startPoint,to->pos()-dir+sub));
-        this->connections.push_back(new action_connector_widget(this->pendingConnection->getFrom(),to));
+        action_connector_widget* con = new action_connector_widget(this,this->pendingConnection->getFrom(),to);
+        to->setFrom(con);
+        this->pendingConnection->getFrom()->setTo(con);
+
+        this->connections.push_back(con);
+
+        delete this->pendingConnection;
+        this->pendingConnection = 0;
+        this->connectionStarted = false;
+
+        con->show();
         this->update();
     }
 }
 void action_container_widget::startConnection(basic_action_widget* from)
 {
-    this->pendingConnection = new action_connector_widget();
+    this->pendingConnection = new action_connector_widget(this);
     this->pendingConnection->setFrom(from);
-
-    this->startPoint = from->pos();
-    QPoint sub(from->width()/2,from->height()/2);
-    this->startPoint+=sub;
 }
 void action_container_widget::connect(basic_action_widget* action)
 {

@@ -19,6 +19,7 @@ public:
     void mousePressEvent(QMouseEvent *);
 
     QSize sizeHint() const;
+
 signals:
 
 public slots:
@@ -26,6 +27,7 @@ public slots:
 private:
     QLabel qlName;
     QVBoxLayout qvContainer;
+
 };
 
 #endif // QT_ACTION_H

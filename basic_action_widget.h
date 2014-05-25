@@ -7,13 +7,23 @@
 #include "qt_action.h"
 
 class action_connection_manager_iface;
+class action_connector_widget;
 
 class basic_action_widget : public qt_action, public basic_action
 {
     bool isDragging;
     QPoint dragStart;
+
+    action_connector_widget* to;
+    action_connector_widget* from;
+
 public:
     basic_action_widget(QWidget* parent,std::string name,action_connection_manager_iface*, actionPtr);
+    inline action_connector_widget* getFrom() const {return from;}
+    inline action_connector_widget* getTo() const  {return to;}
+    inline void setTo(action_connector_widget* pTo){to = pTo;}
+    inline void setFrom(action_connector_widget* pFrom){from = pFrom;}
+
     void mouseReleaseEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
