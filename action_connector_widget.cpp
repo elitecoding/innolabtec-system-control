@@ -26,20 +26,22 @@ void action_connector_widget::paintEvent(QPaintEvent *)
       paint.setPen(pen);
     }
 
-    QPoint dir = this->mapFromParent( this->from->pos())-this->mapFromParent(this->to->pos());
+    QPoint dir = this->mapFromParent( this->from->pos()) - this->mapFromParent(this->to->pos());
     QVector2D dirVect(dir);
 
-    QPoint arrow;
-    arrow.setX(1);
-    float c = dirVect.length()*0.707f;
-    float c1 = dirVect.x();
-    float c2 = dirVect.y();
-    arrow.setY((c-c1)/c2);
-    QVector2D arrowVect(arrow);
+    dirVect.normalize();
+
+    QVector2D arrowVect(0.707f*dirVect.x()-0.707f*dirVect.y(),0.707f*dirVect.x()+0.707f*dirVect.y());
     arrowVect.normalize();
+    arrowVect *= 10;
+    QVector2D arrowVect2(0.707f*dirVect.x()+0.707f*dirVect.y(),-0.707f*dirVect.x()+0.707f*dirVect.y());
+    arrowVect2.normalize();
+    arrowVect2 *= 10;
 
     paint.drawLine(this->mapFromParent( this->from->pos()),this->mapFromParent(this->to->pos()));
-    paint.drawLine(this->mapFromParent(this->to->pos()+arrowVect.toPoint()*5),this->mapFromParent(this->to->pos()));
+    paint.drawLine(this->mapFromParent(this->to->pos())+arrowVect.toPoint(),this->mapFromParent(this->to->pos()));
+    paint.drawLine(this->mapFromParent(this->to->pos())+arrowVect2.toPoint(),this->mapFromParent(this->to->pos()));
+
 }
 QSize action_connector_widget::sizeHint() const
 {
@@ -74,7 +76,7 @@ void action_connector_widget::onActionMoved()
 
     QPoint dir = this->from->pos();
     dir-=this->to->pos();
-    QSize s(abs(dir.x())+30,abs(dir.y())+30);
+    QSize s(abs(dir.x())+60,abs(dir.y())+60);
     this->resize(s);
 
     //Case 1: upper point is upper left corner of widget
@@ -90,14 +92,19 @@ void action_connector_widget::onActionMoved()
         this->upperLeft = upperLeftCorner;
     }
 
-    this->move(this->upperLeft-QPoint(15,15));
+    this->move(this->upperLeft-QPoint(30,30));
 
     dir = this->from->pos()-this->to->pos();
+
+
     int px = dir.x();
     dir.setX(dir.y());
     dir.setY(-px);
-    dir/=( sqrt( pow(dir.x(),2)+pow(dir.y(),2) ) );
 
+    QVector2D dirVect(dir);
+    dirVect.normalize();
+    dirVect*=20;
+    dir = dirVect.toPoint();
     QPoint p1 = this->from->pos()+dir;
     QPoint p2 = this->from->pos()-dir;
     QPoint p3 = this->to->pos()+dir;
