@@ -6,8 +6,8 @@ action_container_widget::action_container_widget(QWidget *parent) :
     this->drawConnection = false;
     this->connectionStarted = false;
 
-    basic_action_widget* action = new basic_action_widget(this,"Action 1",this,&innox::closeGripper);
-    basic_action_widget* action2 = new basic_action_widget(this,"Action 1",this,&innox::openGripper);
+    basic_action_widget* action = new basic_action_widget(this,"Action 1",this);
+    basic_action_widget* action2 = new basic_action_widget(this,"Action 1",this);
     action->execute();
     action->move(100,100);
     action2->move(400,100);

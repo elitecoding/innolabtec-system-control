@@ -18,7 +18,7 @@ class basic_action_widget : public qt_action, public basic_action
     action_connector_widget* from;
 
 public:
-    basic_action_widget(QWidget* parent,std::string name,action_connection_manager_iface*, actionPtr);
+    basic_action_widget(QWidget* parent,std::string name,action_connection_manager_iface*);
     inline action_connector_widget* getFrom() const {return from;}
     inline action_connector_widget* getTo() const  {return to;}
     inline void setTo(action_connector_widget* pTo){to = pTo;}

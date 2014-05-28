@@ -4,8 +4,8 @@
 #include "action_connection_manager_iface.h"
 #include "action_connector_widget.h"
 
-basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_connection_manager_iface* conmgr,actionPtr ptr):
-    qt_action(n,parent),basic_action(n,conmgr,ptr),from(0),to(0)
+basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_connection_manager_iface* conmgr):
+    qt_action(n,parent),basic_action(n,conmgr),from(0),to(0)
 {
 
 }
