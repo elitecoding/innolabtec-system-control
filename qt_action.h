@@ -10,6 +10,8 @@
 #include <QPainter>
 #include <string>
 
+#include "parameter_dock_widget.h"
+
 class qt_action : public QWidget
 {
     Q_OBJECT
@@ -20,11 +22,13 @@ public:
 
     QSize sizeHint() const;
 
+    void addParameterDock(parameter_dock_widget*);
+
 signals:
 
 public slots:
 
-private:
+protected:
     QLabel qlName;
     QVBoxLayout qvContainer;
 

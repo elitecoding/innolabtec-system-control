@@ -3,9 +3,20 @@
 
 action_factory::action_factory():factory()
 {
-   this->factory["Open Gripper"] = action_open_gripper::create;
+   this->factory["OpenGripper"] = action_open_gripper::create;
 }
-action_iface* action_factory::create(std::string name,action_connection_manager_iface* con)
+basic_action_widget* action_factory::create(std::string name,QWidget* parent,action_connection_manager_iface* con)
 {
-   return (this->factory[name])(con);
+   return (this->factory[name])(parent,con);
+}
+std::list<std::string> action_factory::getActionList()
+{
+    std::map<std::string,createPtr>::iterator start;
+    std::list<std::string> ret;
+    for(start=this->factory.begin();start!=this->factory.end();start++)
+    {
+        ret.push_back((*start).first);
+    }
+
+    return ret;
 }

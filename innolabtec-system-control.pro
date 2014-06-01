@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     qt_action.cpp \
     innox.cpp \
     action_open_gripper.cpp \
-    action_factory.cpp
+    action_factory.cpp \
+    qt_parameter.cpp \
+    parameter_dock_widget.cpp
 
 HEADERS  += mainwindow.h \
     point_3d.h \
@@ -33,13 +35,14 @@ HEADERS  += mainwindow.h \
     action_iface.h \
     basic_action.h \
     basic_action_widget.h \
-    param_action.h \
     action_connector_widget.h \
     action_container_widget.h \
     qt_action.h \
     action_connection_manager_iface.h \
     innox.h \
     action_open_gripper.h \
-    action_factory.h
+    action_factory.h \
+    qt_parameter.h \
+    parameter_dock_widget.h
 
 FORMS    += mainwindow.ui

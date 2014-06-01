@@ -1,21 +1,21 @@
 #include "action_container_widget.h"
 #include <math.h>
+#include <iostream>
+
 action_container_widget::action_container_widget(QWidget *parent) :
     QWidget(parent)
 {
     this->drawConnection = false;
     this->connectionStarted = false;
 
+    /*
     basic_action_widget* action = new basic_action_widget(this,"Action 1",this);
     basic_action_widget* action2 = new basic_action_widget(this,"Action 1",this);
     action->execute();
     action->move(100,100);
     action2->move(400,100);
-    this->resize(800,600);
-}
-void action_container_widget::attacheConnection(basic_action_widget *action)
-{
-    //action->next =
+    */
+
 }
 void action_container_widget::paintEvent(QPaintEvent *)
 {
@@ -101,4 +101,36 @@ void action_container_widget::connect(basic_action_widget* action)
         startConnection(action);
         connectionStarted = true;
     }
+}
+void action_container_widget::execute()
+{
+
+    std::list<action_connector_widget*>::iterator iter;
+    basic_action_widget* entry;
+    for(iter = this->connections.begin();iter != this->connections.end();iter++)
+    {
+        action_connector_widget* con = (action_connector_widget*)(*iter);
+        if(con->getFrom()->getFrom() == 0)
+        {
+            std::cout<<"Entry point found: "<<con->getFrom()->getName()<<std::endl;
+            entry=con->getFrom();
+            break;
+        }
+    }
+    entry->execute();
+
+    while(entry->getTo()!=0)
+    {
+        if(entry->getTo()->getTo()!=0)
+        {
+            entry = entry->getTo()->getTo();
+        }else
+        {
+            break;
+        }
+
+        entry->execute();
+    }
+
+    std::cout<<"Programm terminated!"<<std::endl;
 }

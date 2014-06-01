@@ -9,7 +9,7 @@
 #include <QPoint>
 #include "innox.h"
 
-class action_container_widget : public QWidget,action_connection_manager_iface
+class action_container_widget : public QWidget, public action_connection_manager_iface
 {
     Q_OBJECT
 
@@ -38,6 +38,8 @@ public:
     void startConnection(basic_action_widget*);
     void stopConnection(basic_action_widget*);
     void connect(basic_action_widget*);
+
+    void execute();
 signals:
 
 public slots:

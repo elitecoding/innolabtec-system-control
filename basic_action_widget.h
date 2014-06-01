@@ -14,8 +14,9 @@ class basic_action_widget : public qt_action, public basic_action
     bool isDragging;
     QPoint dragStart;
 
-    action_connector_widget* to;
     action_connector_widget* from;
+    action_connector_widget* to;
+
 
 public:
     basic_action_widget(QWidget* parent,std::string name,action_connection_manager_iface*);

@@ -4,6 +4,7 @@
 qt_action::qt_action(std::string name,QWidget *parent) :
     QWidget(parent),qlName(name.c_str()),qvContainer(this)
 {
+
     this->qvContainer.addWidget(&qlName);
 }
 void qt_action::paintEvent(QPaintEvent *event)
@@ -19,6 +20,11 @@ void qt_action::mousePressEvent(QMouseEvent *event)
 QSize qt_action::sizeHint(void) const
 {
     return QSize(100,100);
+}
+void qt_action::addParameterDock(parameter_dock_widget* dock)
+{
+    dock->resize(10,10);
+    this->qvContainer.addWidget(dock);
 }
 
 

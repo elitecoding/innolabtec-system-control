@@ -3,11 +3,17 @@
 #include <iostream>
 #include "action_connection_manager_iface.h"
 #include "action_connector_widget.h"
+#include <sstream>
+
 
 basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_connection_manager_iface* conmgr):
     qt_action(n,parent),basic_action(n,conmgr),from(0),to(0)
 {
+    std::stringstream ss;
+    ss << this->instanceCount;
+    std::string str = ss.str();
 
+    this->qlName.setText((n+" "+str).c_str());
 }
 void basic_action_widget::mouseReleaseEvent(QMouseEvent * event)
 {

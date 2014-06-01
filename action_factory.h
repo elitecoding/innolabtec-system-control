@@ -3,17 +3,19 @@
 
 #include <map>
 #include <string>
+#include <list>
 #include "action_connection_manager_iface.h"
-#include "action_iface.h"
+#include "basic_action_widget.h"
 
-typedef action_iface* (*createPtr)( action_connection_manager_iface* );
+typedef basic_action_widget* (*createPtr)( QWidget* parent,action_connection_manager_iface* );
 
 class action_factory
 {
     std::map<std::string,createPtr> factory;
 public:
     action_factory();
-    action_iface* create(std::string name,action_connection_manager_iface*);
+    basic_action_widget* create(std::string name,QWidget* parent,action_connection_manager_iface*);
+    std::list<std::string> getActionList();
 
 };
 
