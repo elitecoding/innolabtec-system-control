@@ -65,9 +65,17 @@ void MainWindow::addAction()
 
 
     parameter_dock_widget* dock = new parameter_dock_widget(w);
-
+    parameter_dock_widget* dock1 = new parameter_dock_widget(w);
+    parameter_dock_widget* dock2 = new parameter_dock_widget(w);
+    parameter_dock_widget* dock3 = new parameter_dock_widget(w);
+    parameter_dock_widget* dock4 = new parameter_dock_widget(w);
+    parameter_dock_widget* dock5 = new parameter_dock_widget(w);
     w->addParameterDock(dock);
-    w->move(10,10);
+    w->addParameterDock(dock1);
+    w->addParameterDock(dock2);
+    w->addParameterDock(dock3);
+    //w->addParameterDock(dock4);
+    //w->addParameterDock(dock5);
     w->show();
 }
 void MainWindow::onRunProgram()

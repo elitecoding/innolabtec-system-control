@@ -47,6 +47,7 @@ void action_container_widget::mouseMoveEvent(QMouseEvent *event)
 }
 void action_container_widget::mousePressEvent(QMouseEvent *event)
 {
+    std::cout<<"Container: mouse press"<<std::endl;
     this->pendingConnection = 0;
     this->connectionStarted = false;
 }
@@ -67,8 +68,17 @@ void action_container_widget::mouseReleaseEvent(QMouseEvent *event)
 }*/
 void action_container_widget::stopConnection(basic_action_widget* to)
 {
-    if(this->pendingConnection!=0)
+    if(this->pendingConnection!=0 && to != this->pendingConnection->getFrom())
     {
+        if(to->getFrom() != 0)
+        {
+            to->getFrom()->deleteConnection();
+        }
+        if(this->pendingConnection->getFrom()->getTo() != 0)
+        {
+            this->pendingConnection->getFrom()->getTo()->deleteConnection();
+        }
+
         this->pendingConnection->getFrom()->setNext(to);
 
         action_connector_widget* con = new action_connector_widget(this,this->pendingConnection->getFrom(),to);
@@ -94,8 +104,11 @@ void action_container_widget::connect(basic_action_widget* action)
 {
     if(connectionStarted)
     {
-        stopConnection(action);
-        connectionStarted = false;
+        if(this->pendingConnection->getFrom() != action)
+        {
+            stopConnection(action);
+            connectionStarted = false;
+        }
     }else
     {
         startConnection(action);

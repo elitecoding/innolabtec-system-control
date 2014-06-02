@@ -124,4 +124,9 @@ void action_connector_widget::onActionMoved()
     QRegion mask(poli);
     this->setMask(mask);
 }
-
+void action_connector_widget::deleteConnection()
+{
+    this->getFrom()->deleteTo();
+    this->getTo()->deleteFrom();
+    delete this;
+}

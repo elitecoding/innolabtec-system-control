@@ -24,7 +24,8 @@ public:
     inline action_connector_widget* getTo() const  {return to;}
     inline void setTo(action_connector_widget* pTo){to = pTo;}
     inline void setFrom(action_connector_widget* pFrom){from = pFrom;}
-
+    inline void deleteFrom(){from=0;}
+    inline void deleteTo(){to=0;}
     void mouseReleaseEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);

@@ -2,10 +2,11 @@
 #include <iostream>
 #include <QString>
 qt_action::qt_action(std::string name,QWidget *parent) :
-    QWidget(parent),qlName(name.c_str()),qvContainer(this)
+    QWidget(parent),qlName(name.c_str()),qvContainer(this),qhContainer(this)
 {
 
     this->qvContainer.addWidget(&qlName);
+    this->qvContainer.addLayout(&this->qhContainer);
 }
 void qt_action::paintEvent(QPaintEvent *event)
 {
@@ -23,8 +24,7 @@ QSize qt_action::sizeHint(void) const
 }
 void qt_action::addParameterDock(parameter_dock_widget* dock)
 {
-    dock->resize(10,10);
-    this->qvContainer.addWidget(dock);
+    this->qhContainer.addWidget(dock);
 }
 
 

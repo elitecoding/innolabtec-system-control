@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QPainter>
 #include <string>
 
@@ -31,6 +32,7 @@ public slots:
 protected:
     QLabel qlName;
     QVBoxLayout qvContainer;
+    QHBoxLayout qhContainer;
 
 };
 

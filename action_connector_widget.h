@@ -27,6 +27,8 @@ public:
     inline basic_action_widget* getFrom() const {return this->from;}
     inline basic_action_widget* getTo() const {return this->to;}
 
+    void deleteConnection();
+
     void onActionMoved();
 
     void paintEvent(QPaintEvent *);

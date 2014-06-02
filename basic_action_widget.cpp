@@ -43,9 +43,9 @@ void basic_action_widget::mouseMoveEvent(QMouseEvent* event)
         moveTo-=this->dragStart;
         this->move(moveTo);
 
-        if(this->from)
+        if(this->from!=0)
             this->from->onActionMoved();
-        if(this->to)
+        if(this->to!=0)
             this->to->onActionMoved();
     }
 }

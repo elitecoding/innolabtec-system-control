@@ -10,12 +10,12 @@ parameter_dock_widget::parameter_dock_widget(basic_action_widget *parent) :
 void parameter_dock_widget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    QRect r(5,5,5,5);
+    QRect r(1,1,8,8);
     painter.drawRect(r);
 }
 void parameter_dock_widget::mousePressEvent(QMouseEvent *)
 {
-    std::cout<<"mouse press on dock"<<std::endl;
+    std::cout<<"dock: mouse press on"<<std::endl;
 }
 QSize parameter_dock_widget::sizeHint() const
 {
