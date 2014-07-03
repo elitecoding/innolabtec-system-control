@@ -26,7 +26,12 @@ SOURCES += main.cpp\
     action_open_gripper.cpp \
     action_factory.cpp \
     qt_parameter.cpp \
-    parameter_dock_widget.cpp
+    parameter_dock_widget.cpp \
+    parameter_widget.cpp \
+    qt_arrow.cpp \
+    parameter_dock.cpp \
+    action_load_sample.cpp \
+    parameter_factory.cpp
 
 HEADERS  += mainwindow.h \
     point_3d.h \
@@ -43,6 +48,11 @@ HEADERS  += mainwindow.h \
     action_open_gripper.h \
     action_factory.h \
     qt_parameter.h \
-    parameter_dock_widget.h
+    parameter_dock_widget.h \
+    parameter_widget.h \
+    qt_arrow.h \
+    parameter_dock.h \
+    action_load_sample.h \
+    parameter_factory.h
 
 FORMS    += mainwindow.ui

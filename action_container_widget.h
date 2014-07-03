@@ -9,6 +9,7 @@
 #include <QPoint>
 #include "innox.h"
 
+
 class action_container_widget : public QWidget, public action_connection_manager_iface
 {
     Q_OBJECT
@@ -20,7 +21,7 @@ class action_container_widget : public QWidget, public action_connection_manager
 
     std::list<action_connector_widget*> connections;
 
-    action_connector_widget* pendingConnection;
+    basic_action_widget* pendingConnection;
 
     bool connectionStarted;
 
@@ -38,7 +39,7 @@ public:
     void startConnection(basic_action_widget*);
     void stopConnection(basic_action_widget*);
     void connect(basic_action_widget*);
-
+    void connect(parameter_widget*);
     void execute();
 signals:
 

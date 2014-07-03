@@ -12,3 +12,13 @@ point_3d point_3d::getParam()
 {
     return *this;
 }
+void point_3d::print(std::ostream& stream) const
+{
+    stream<<"( "<<this->x<<", "<<this->y<<", "<<this->z<<" )";
+}
+
+std::ostream& operator<<(std::ostream& stream, const point_3d& point)
+{
+    point.print(stream);
+    return stream;
+}

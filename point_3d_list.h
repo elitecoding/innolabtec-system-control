@@ -18,8 +18,10 @@ public:
        Single, List
     };
 
-    point_3d_list(std::string,parameterTypes);
+    point_3d_list(std::string);
     point_3d getParam();
+    bool hasParameter();
+    inline std::string getName(){return name;}
 
 private:
     parameterTypes type;

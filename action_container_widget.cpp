@@ -68,26 +68,41 @@ void action_container_widget::mouseReleaseEvent(QMouseEvent *event)
 }*/
 void action_container_widget::stopConnection(basic_action_widget* to)
 {
-    if(this->pendingConnection!=0 && to != this->pendingConnection->getFrom())
+    if(this->pendingConnection!=0 && to != this->pendingConnection)
     {
+
+        /* check for a bi-directional connection */
+        if(to->getTo()!=0)
+        {
+            if( to->getTo()->getTo() == this->pendingConnection )
+            {
+                /* prevent loop */
+                std::cout<<"You can not from a bi-directional link!"<<std::endl;
+                return;
+            }
+        }
+
+        /* delete former connection pointing to "to" */
         if(to->getFrom() != 0)
         {
             to->getFrom()->deleteConnection();
         }
-        if(this->pendingConnection->getFrom()->getTo() != 0)
+
+        /* delete former outgoing connection of "from" */
+        if(this->pendingConnection->getTo() != 0)
         {
-            this->pendingConnection->getFrom()->getTo()->deleteConnection();
+            this->pendingConnection->getTo()->deleteConnection();
         }
 
-        this->pendingConnection->getFrom()->setNext(to);
+        /* Next pointer is not used... */
+        this->pendingConnection->setNext(to);
 
-        action_connector_widget* con = new action_connector_widget(this,this->pendingConnection->getFrom(),to);
+        action_connector_widget* con = new action_connector_widget(this,this->pendingConnection,to);
         to->setFrom(con);
-        this->pendingConnection->getFrom()->setTo(con);
+        this->pendingConnection->setTo(con);
 
         this->connections.push_back(con);
 
-        delete this->pendingConnection;
         this->pendingConnection = 0;
         this->connectionStarted = false;
 
@@ -97,14 +112,13 @@ void action_container_widget::stopConnection(basic_action_widget* to)
 }
 void action_container_widget::startConnection(basic_action_widget* from)
 {
-    this->pendingConnection = new action_connector_widget(this);
-    this->pendingConnection->setFrom(from);
+    this->pendingConnection=from;
 }
 void action_container_widget::connect(basic_action_widget* action)
 {
     if(connectionStarted)
     {
-        if(this->pendingConnection->getFrom() != action)
+        if(this->pendingConnection != action)
         {
             stopConnection(action);
             connectionStarted = false;
@@ -115,11 +129,21 @@ void action_container_widget::connect(basic_action_widget* action)
         connectionStarted = true;
     }
 }
+void action_container_widget::connect(parameter_widget* param)
+{
+    if(connectionStarted)
+    {
+
+    }else
+    {
+
+    }
+}
 void action_container_widget::execute()
 {
 
     std::list<action_connector_widget*>::iterator iter;
-    basic_action_widget* entry;
+    basic_action_widget* entry = 0;
     for(iter = this->connections.begin();iter != this->connections.end();iter++)
     {
         action_connector_widget* con = (action_connector_widget*)(*iter);
@@ -129,6 +153,11 @@ void action_container_widget::execute()
             entry=con->getFrom();
             break;
         }
+    }
+    if(entry == 0)
+    {
+        std::cout<<"No entry point found! Make sure to have one action with only an outgoing connection."<<std::endl;
+        return;
     }
     entry->execute();
 

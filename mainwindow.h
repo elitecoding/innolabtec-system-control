@@ -9,6 +9,7 @@
 
 #include "action_connector_widget.h"
 #include "action_factory.h"
+#include "parameter_factory.h"
 #include "action_container_widget.h"
 #include <list>
 
@@ -32,12 +33,15 @@ private:
     QMenu* programMenu;
     QAction *newAction;
     QAction* runProgram;
+    QAction* newParameter;
     action_factory* factory;
+    parameter_factory* parameterFactroy;
     action_container_widget* container;
 
 private slots:
     void exit();
     void addAction();
+    void addParameter();
     void onRunProgram();
 };
 

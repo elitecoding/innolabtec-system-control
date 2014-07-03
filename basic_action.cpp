@@ -13,7 +13,7 @@ basic_action::basic_action(std::string n,action_connection_manager_iface* mgr):n
     std::cout<<"basic_action ctor. Name: "<<name<<" Instance count: "<<instanceCount<<std::endl;
     instanceCount++;
 }
-void basic_action::addParameter(std::string name, point_3d_list::parameterTypes type)
+void basic_action::addParameter(parameter_dock* dock)
 {
-    this->parameter.push_front(new point_3d_list(name,type));
+       this->parameter[dock->getName()] = dock;
 }

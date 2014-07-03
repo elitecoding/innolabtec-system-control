@@ -6,39 +6,25 @@
 #include <QPaintEvent>
 #include <QSize>
 #include <QMouseEvent>
-#include "basic_action_widget.h"
+class basic_action_widget;
+#include "qt_arrow.h"
 
-class action_connector_widget: public QWidget
+class action_connector_widget: public qt_arrow
 {
-    Q_OBJECT
-
-    basic_action_widget* from;
-    basic_action_widget* to;
-    QPolygon mask;
-    QPoint upperLeft;
-    bool marked;
 
 public:
 
-    action_connector_widget(QWidget* parent);
+    action_connector_widget(QWidget* parent =0);
     explicit action_connector_widget(QWidget* parent,basic_action_widget* from,basic_action_widget* to);
-    inline void setFrom(basic_action_widget* p){this->from=p;}
-    inline void setTo(basic_action_widget* p){this->to=p;}
-    inline basic_action_widget* getFrom() const {return this->from;}
-    inline basic_action_widget* getTo() const {return this->to;}
+    inline void setFrom(basic_action_widget* p){this->widgetFrom=(QWidget*)p;}
+    inline void setTo(basic_action_widget* p){this->widgetTo=(QWidget*)p;}
+    inline basic_action_widget* getFrom() const {return (basic_action_widget*)this->widgetFrom;}
+    inline basic_action_widget* getTo() const {return (basic_action_widget*)this->widgetTo;}
 
     void deleteConnection();
 
     void onActionMoved();
 
-    void paintEvent(QPaintEvent *);
-    void mousePressEvent(QMouseEvent*);
-    void mouseReleaseEvent(QMouseEvent*);
-    QSize sizeHint() const;
-
-signals:
-
-public slots:
 
 };
 

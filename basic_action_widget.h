@@ -11,8 +11,7 @@ class action_connector_widget;
 
 class basic_action_widget : public qt_action, public basic_action
 {
-    bool isDragging;
-    QPoint dragStart;
+
 
     action_connector_widget* from;
     action_connector_widget* to;
@@ -26,6 +25,7 @@ public:
     inline void setFrom(action_connector_widget* pFrom){from = pFrom;}
     inline void deleteFrom(){from=0;}
     inline void deleteTo(){to=0;}
+    void addParameter(std::string, point_3d_list::parameterTypes);
     void mouseReleaseEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);

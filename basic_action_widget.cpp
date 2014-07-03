@@ -17,36 +17,37 @@ basic_action_widget::basic_action_widget(QWidget *parent,std::string n,action_co
 }
 void basic_action_widget::mouseReleaseEvent(QMouseEvent * event)
 {
-    std::cout<<"mouse release on action: "<<getName()<<std::endl;
+    std::cout<<"basic_action_widget: mouseReleaseEvent"<<std::endl;
+
+    qt_action::mouseReleaseEvent(event);
 
     if(this->rect().contains(event->pos())&&!this->isDragging)
     {
         this->getConnectionManager()->connect(this);
     }
-
-    this->isDragging = false;
 }
 void basic_action_widget::mousePressEvent(QMouseEvent * event)
 {
-    this->dragStart = event->pos();
-    std::cout<<"mouse press on action: "<<getName()<<std::endl;
+    std::cout<<"basic_action_widget: mousePressEvent"<<std::endl;
+    qt_action::mousePressEvent(event);
 }
-void basic_action_widget::mouseMoveEvent(QMouseEvent* event)
+void basic_action_widget::mouseMoveEvent(QMouseEvent * event)
 {
-    if((event->pos()-this->dragStart).manhattanLength()>10)
-    {
-       this->isDragging = true;
-    }
+
+    qt_action::mouseMoveEvent(event);
+
     if(isDragging)
     {
-        QPoint moveTo = this->mapToParent(event->pos());
-        moveTo-=this->dragStart;
-        this->move(moveTo);
-
         if(this->from!=0)
             this->from->onActionMoved();
         if(this->to!=0)
             this->to->onActionMoved();
     }
+}
+void basic_action_widget::addParameter(std::string name, point_3d_list::parameterTypes type)
+{
+    parameter_dock_widget* dock = new parameter_dock_widget(this,name);
+    this->addParameterDock(dock);
+    basic_action::addParameter(dock);
 }
 

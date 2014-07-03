@@ -12,6 +12,7 @@ typedef basic_action_widget* (*createPtr)( QWidget* parent,action_connection_man
 class action_factory
 {
     std::map<std::string,createPtr> factory;
+    //std::map<std::string,createParameterPtr> parameterFactory;
 public:
     action_factory();
     basic_action_widget* create(std::string name,QWidget* parent,action_connection_manager_iface*);

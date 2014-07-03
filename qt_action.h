@@ -20,10 +20,13 @@ public:
     explicit qt_action(std::string name,QWidget *parent = 0);
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent * event);
 
     QSize sizeHint() const;
 
     void addParameterDock(parameter_dock_widget*);
+
 
 signals:
 
@@ -33,6 +36,8 @@ protected:
     QLabel qlName;
     QVBoxLayout qvContainer;
     QHBoxLayout qhContainer;
+    bool isDragging;
+    QPoint dragStart;
 
 };
 

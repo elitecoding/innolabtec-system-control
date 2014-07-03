@@ -1,9 +1,11 @@
 #include "action_factory.h"
 #include "action_open_gripper.h"
+#include "action_load_sample.h"
 
 action_factory::action_factory():factory()
 {
    this->factory["OpenGripper"] = action_open_gripper::create;
+   this->factory["LoadSample"] = action_load_sample::create;
 }
 basic_action_widget* action_factory::create(std::string name,QWidget* parent,action_connection_manager_iface* con)
 {

@@ -5,7 +5,8 @@
 #include<QWidget>
 #include<string>
 #include "action_connection_manager_iface.h"
-
+#include "parameter_dock.h"
+#include <map>
 
 class basic_action: public action_iface
 {
@@ -13,7 +14,7 @@ protected:
     std::string name;
     action_iface* next;
     action_connection_manager_iface* conManager;
-    std::list<point_3d_list*> parameter;
+    std::map<std::string,parameter_dock*> parameter;
     static int instanceCount;
 
 public:
@@ -23,8 +24,9 @@ public:
     inline void setNext(action_iface* next){this->next = next;}
     inline std::string getName(){return name;}
     inline action_connection_manager_iface* getConnectionManager(){return conManager;}
-    inline std::list<point_3d_list*>* getParameterList(){return &parameter;}
-    void addParameter(std::string,point_3d_list::parameterTypes);
+    inline std::map<std::string,parameter_dock*>* getParameterList(){return &parameter;}
+    virtual void addParameter(parameter_dock*);
+
 };
 
 #endif // BASIC_ACTION_H

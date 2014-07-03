@@ -8,7 +8,12 @@
 #include <QList>
 #include <QString>
 #include "parameter_dock_widget.h"
+#include "qt_parameter.h"
 
+/**
+ * @brief Setup menu structure and factories
+ * @param parent
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),factory(0)
@@ -19,25 +24,34 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->factory = new action_factory();
 
+    this->parameterFactroy = new parameter_factory();
+    this->parameterFactroy->loadParameter("path to xml file");
+
     this->container = new action_container_widget(0);
 
     this->ui->verticalLayout->addWidget(container);
 
-    this->newAction = new QAction("Add",this);
+    this->newAction = new QAction("Add Action",this);
+    this->newParameter = new QAction("Add Parameter",this);
     this->runProgram = new QAction("Run",this);
+
     this->fileMenu = new QMenu("File",this);
     this->programMenu = new QMenu("Program",this);
+
+
     this->programMenu->addAction(this->newAction);
+    this->programMenu->addAction(this->newParameter);
     this->programMenu->addAction(this->runProgram);
+
     menuBar()->addMenu(this->fileMenu);
     menuBar()->addMenu(this->programMenu);
+
     connect(this->newAction, SIGNAL(triggered()), this, SLOT(addAction()));
     connect(this->runProgram,SIGNAL(triggered()),this, SLOT(onRunProgram()));
+
     this->resize(800,600);
+
 }
-
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -63,20 +77,22 @@ void MainWindow::addAction()
 
     basic_action_widget* w = this->factory->create(action.toStdString(),this->container,this->container);
 
-
-    parameter_dock_widget* dock = new parameter_dock_widget(w);
-    parameter_dock_widget* dock1 = new parameter_dock_widget(w);
-    parameter_dock_widget* dock2 = new parameter_dock_widget(w);
-    parameter_dock_widget* dock3 = new parameter_dock_widget(w);
-    parameter_dock_widget* dock4 = new parameter_dock_widget(w);
-    parameter_dock_widget* dock5 = new parameter_dock_widget(w);
-    w->addParameterDock(dock);
-    w->addParameterDock(dock1);
-    w->addParameterDock(dock2);
-    w->addParameterDock(dock3);
-    //w->addParameterDock(dock4);
-    //w->addParameterDock(dock5);
     w->show();
+
+}
+void MainWindow::addParameter()
+{
+    std::cout<<"new Parameter menu"<<std::endl;
+
+    QStringList list;
+    std::list<parameter_widget*> actions = *(this->parameterFactroy->getParameterList());
+
+    for(std::list<parameter_widget*>::iterator it = actions.begin();it != actions.end();it++)
+    {
+        list.append(QString( ((parameter_widget*)(*it))->getName().c_str()));
+    }
+
+    QString action = QInputDialog::getItem(this,"Select Parameter","Parameter:",list);
 }
 void MainWindow::onRunProgram()
 {
