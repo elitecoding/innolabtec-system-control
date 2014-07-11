@@ -41,5 +41,11 @@ void qt_action::mouseMoveEvent(QMouseEvent* event)
        QPoint moveTo = this->mapToParent(event->pos());
        moveTo-=this->dragStart;
        this->move(moveTo);
+       QObjectList::iterator it;
+
+       for(it=this->qhContainer.children().begin();it!=this->qhContainer.children().end();it++)
+       {
+           parameter_dock_widget* p = (parameter_dock_widget)(*it);
+       }
     }
 }

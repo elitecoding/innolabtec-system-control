@@ -15,11 +15,11 @@ This class created all position parameter using loadParameter method and stores 
 
 class parameter_factory
 {
-    std::list<parameter_widget*> parameter;
+    std::list<point_3d_list*> parameter;
 public:
     parameter_factory();
     void loadParameter(std::string);
-    inline std::list<parameter_widget*>* getParameterList(){return &parameter;}
+    inline std::list<point_3d_list*>* getParameterList(){return &parameter;}
 };
 
 #endif // PARAMETER_FACTORY_H

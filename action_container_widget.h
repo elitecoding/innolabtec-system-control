@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "action_connector_widget.h"
+#include "parameter_connector_widget.h"
 #include "basic_action_widget.h"
 #include "action_connection_manager_iface.h"
 #include <list>
@@ -22,6 +23,7 @@ class action_container_widget : public QWidget, public action_connection_manager
     std::list<action_connector_widget*> connections;
 
     basic_action_widget* pendingConnection;
+    parameter_widget* pendingParameter;
 
     bool connectionStarted;
 
@@ -40,6 +42,7 @@ public:
     void stopConnection(basic_action_widget*);
     void connect(basic_action_widget*);
     void connect(parameter_widget*);
+    void connect(parameter_dock_widget*);
     void execute();
 signals:
 

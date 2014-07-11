@@ -41,15 +41,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->programMenu->addAction(this->newAction);
     this->programMenu->addAction(this->newParameter);
+
     this->programMenu->addAction(this->runProgram);
 
     menuBar()->addMenu(this->fileMenu);
     menuBar()->addMenu(this->programMenu);
 
     connect(this->newAction, SIGNAL(triggered()), this, SLOT(addAction()));
+    connect(this->newParameter, SIGNAL(triggered()), this, SLOT(addParameter()));
     connect(this->runProgram,SIGNAL(triggered()),this, SLOT(onRunProgram()));
 
     this->resize(800,600);
+    this->parameterFactroy->loadParameter("");
 
 }
 MainWindow::~MainWindow()
@@ -85,14 +88,18 @@ void MainWindow::addParameter()
     std::cout<<"new Parameter menu"<<std::endl;
 
     QStringList list;
-    std::list<parameter_widget*> actions = *(this->parameterFactroy->getParameterList());
+    std::list<point_3d_list*> actions = *(this->parameterFactroy->getParameterList());
 
-    for(std::list<parameter_widget*>::iterator it = actions.begin();it != actions.end();it++)
+    for(std::list<point_3d_list*>::iterator it = actions.begin();it != actions.end();it++)
     {
-        list.append(QString( ((parameter_widget*)(*it))->getName().c_str()));
+        list.append(QString( ((point_3d_list*)(*it))->getName().c_str()));
     }
 
     QString action = QInputDialog::getItem(this,"Select Parameter","Parameter:",list);
+
+    parameter_widget* w = new parameter_widget(action.toStdString(),this->container,this->container);
+
+    w->show();
 }
 void MainWindow::onRunProgram()
 {

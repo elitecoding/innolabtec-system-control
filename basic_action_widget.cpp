@@ -42,6 +42,7 @@ void basic_action_widget::mouseMoveEvent(QMouseEvent * event)
             this->from->onActionMoved();
         if(this->to!=0)
             this->to->onActionMoved();
+
     }
 }
 void basic_action_widget::addParameter(std::string name, point_3d_list::parameterTypes type)

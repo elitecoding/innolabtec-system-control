@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     qt_arrow.cpp \
     parameter_dock.cpp \
     action_load_sample.cpp \
-    parameter_factory.cpp
+    parameter_factory.cpp \
+    parameter_connector_widget.cpp
 
 HEADERS  += mainwindow.h \
     point_3d.h \
@@ -53,6 +54,7 @@ HEADERS  += mainwindow.h \
     qt_arrow.h \
     parameter_dock.h \
     action_load_sample.h \
-    parameter_factory.h
+    parameter_factory.h \
+    parameter_connector_widget.h
 
 FORMS    += mainwindow.ui

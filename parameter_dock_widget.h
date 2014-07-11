@@ -6,6 +6,8 @@
 #include <QPaintEvent>
 #include <QSize>
 #include <QPainter>
+#include <QVBoxLayout>
+#include <QLabel>
 
 #include <string>
 
@@ -17,6 +19,8 @@ class parameter_widget;
 class parameter_dock_widget : public QWidget,public parameter_dock
 {
     Q_OBJECT
+    QVBoxLayout layoutContainer;
+    QLabel labelName;
 
 public:
 
@@ -25,6 +29,7 @@ public:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
+
     QSize sizeHint() const;
 
     inline void setParameter(parameter_widget* p){this->param = (point_3d_list*)p;}

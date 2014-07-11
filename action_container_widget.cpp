@@ -1,9 +1,10 @@
 #include "action_container_widget.h"
+
 #include <math.h>
 #include <iostream>
 
 action_container_widget::action_container_widget(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),pendingConnection(0),pendingParameter(0)
 {
     this->drawConnection = false;
     this->connectionStarted = false;
@@ -134,6 +135,29 @@ void action_container_widget::connect(parameter_widget* param)
     if(connectionStarted)
     {
 
+    }else
+    {
+        pendingParameter = param;
+        connectionStarted=true;
+    }
+}
+void action_container_widget::connect(parameter_dock_widget* param)
+{
+    if(connectionStarted && pendingParameter!=0)
+    {
+        param->setParameter(pendingParameter);
+
+        parameter_dock_widget* p = param;
+        parameter_dock* d = p;
+        QWidget* w = (QWidget*)d;
+        parameter_dock_widget* p2 = (parameter_dock_widget*)d;
+        QWidget* w2 = (QWidget*)p2;
+
+        parameter_connector_widget* con = new parameter_connector_widget(this,pendingParameter,param);
+        con->show();
+        this->update();
+        pendingParameter = 0;
+        connectionStarted = false;
     }else
     {
 

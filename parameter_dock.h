@@ -13,6 +13,7 @@ public:
     parameter_dock(std::string);
     inline std::string getName(){return this->name;}
     inline point_3d_list* getParam(){return this->param;}
+    inline void setParameter(point_3d_list* p){this->param = p;}
 };
 
 #endif // PARAMETER_DOCK_H
