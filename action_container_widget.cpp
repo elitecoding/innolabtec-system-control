@@ -154,6 +154,8 @@ void action_container_widget::connect(parameter_dock_widget* param)
         QWidget* w2 = (QWidget*)p2;
 
         parameter_connector_widget* con = new parameter_connector_widget(this,pendingParameter,param);
+        param->setConnector(con);
+        pendingParameter->setConnector(con);
         con->show();
         this->update();
         pendingParameter = 0;

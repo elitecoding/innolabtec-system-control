@@ -25,6 +25,9 @@ public:
 
     void deleteConnection();
 
+
+
+
     void onActionMoved();
 
 };

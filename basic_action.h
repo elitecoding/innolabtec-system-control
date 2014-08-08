@@ -2,11 +2,13 @@
 #define BASIC_ACTION_H
 
 #include"action_iface.h"
-#include<QWidget>
-#include<string>
+#include <QWidget>
+#include <string>
 #include "action_connection_manager_iface.h"
 #include "parameter_dock.h"
+#include "parameter_dock_widget.h"
 #include <map>
+#include <QMouseEvent>
 
 class basic_action: public action_iface
 {
@@ -26,7 +28,7 @@ public:
     inline action_connection_manager_iface* getConnectionManager(){return conManager;}
     inline std::map<std::string,parameter_dock*>* getParameterList(){return &parameter;}
     virtual void addParameter(parameter_dock*);
-
+    void mouseMoveEvent(QMouseEvent * event);
 };
 
 #endif // BASIC_ACTION_H

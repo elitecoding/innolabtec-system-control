@@ -14,8 +14,17 @@ void qt_arrow::paintEvent(QPaintEvent * e)
       paint.setPen(pen);
     }
 
-    QPoint pFrom  = this->widgetFrom->pos();
-    QPoint dir = this->mapFromParent( this->widgetFrom->pos()) - this->mapFromParent(this->widgetTo->pos());
+    QPoint wpFrom = this->widgetFrom->pos();
+    QPoint wpTo = this->widgetTo->pos();
+
+
+    QPoint pParentTo = this->widgetTo->mapToGlobal(QPoint(0,0));
+    pParentTo = this->mapFromGlobal(pParentTo);
+
+    QPoint pParentFrom = this->widgetFrom->mapToGlobal(QPoint(0,0));
+    pParentFrom = this->mapFromGlobal(pParentFrom);
+
+    QPoint dir = pParentFrom - pParentTo;
     QVector2D dirVect(dir);
 
     dirVect.normalize();
@@ -27,9 +36,11 @@ void qt_arrow::paintEvent(QPaintEvent * e)
     arrowVect2.normalize();
     arrowVect2 *= 10;
 
-    paint.drawLine(this->mapFromParent( this->widgetFrom->pos()),this->mapFromParent(this->widgetTo->pos()));
-    paint.drawLine(this->mapFromParent(this->widgetTo->pos())+arrowVect.toPoint(),this->mapFromParent(this->widgetTo->pos()));
-    paint.drawLine(this->mapFromParent(this->widgetTo->pos())+arrowVect2.toPoint(),this->mapFromParent(this->widgetTo->pos()));
+
+
+    paint.drawLine(pParentFrom,pParentTo);
+    paint.drawLine(pParentTo+arrowVect.toPoint(),pParentTo);
+    paint.drawLine(pParentTo+arrowVect2.toPoint(),pParentTo);
 
 }
 QSize qt_arrow::sizeHint() const

@@ -1,11 +1,12 @@
 #include "parameter_dock_widget.h"
 #include "basic_action_widget.h"
+#include "parameter_connector_widget.h"
 
 #include <iostream>
 #include <QSizePolicy>
 
 parameter_dock_widget::parameter_dock_widget(basic_action_widget *parent,std::string name) :
-    QWidget(0),parameter_dock(name),layoutContainer(this),labelName(name.c_str())
+    QWidget(0),parameter_dock(name),layoutContainer(this),labelName(name.c_str()),connector(0)
 {
     QSizePolicy spol;
     layoutContainer.addWidget(&labelName);
@@ -27,7 +28,13 @@ void parameter_dock_widget::mouseReleaseEvent(QMouseEvent *)
     std::cout<<"dock: mouse release"<<std::endl;
     ((basic_action_widget*)this->parent())->getConnectionManager()->connect(this);
 }
+void parameter_dock_widget::mouseMoveEvent(QMouseEvent *)
+{
+      std::cout<<"dock: mouse move"<<std::endl;
+}
+
 QSize parameter_dock_widget::sizeHint() const
 {
     return QSize(20,20);
 }
+

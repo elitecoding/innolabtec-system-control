@@ -2,7 +2,7 @@
 #include <iostream>
 
 parameter_widget::parameter_widget(std::string name,QWidget* parent,action_connection_manager_iface* con):
-    qt_parameter(name,parent),point_3d_list(name),connectionManager(con)
+    qt_parameter(name,parent),point_3d_list(name),connectionManager(con),connector(0)
 {
 
 }
@@ -25,4 +25,6 @@ void parameter_widget::mousePressEvent(QMouseEvent * event)
 void parameter_widget::mouseMoveEvent(QMouseEvent * event)
 {
     qt_action::mouseMoveEvent(event);
+    if(connector != 0)
+        this->connector->onActionMoved();
 }

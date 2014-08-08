@@ -3,6 +3,8 @@
 #include <iostream>
 #include "action_connection_manager_iface.h"
 #include "action_connector_widget.h"
+#include "parameter_connector_widget.h"
+#include "parameter_dock_widget.h"
 #include <sstream>
 
 
@@ -36,13 +38,25 @@ void basic_action_widget::mouseMoveEvent(QMouseEvent * event)
 
     qt_action::mouseMoveEvent(event);
 
+    std::map<std::string,parameter_dock*>::iterator it;
+
     if(isDragging)
     {
-        if(this->from!=0)
-            this->from->onActionMoved();
-        if(this->to!=0)
-            this->to->onActionMoved();
+        for(it = this->parameter.begin();it!=this->parameter.end();it++)
+        {
+            parameter_dock_widget* dock = (parameter_dock_widget*)it->second;
+            if(dock->getConnector() != 0)
+                dock->getConnector()->onActionMoved();
+        }
 
+        if(this->from!=0)
+        {
+            this->from->onActionMoved();
+        }
+        if(this->to!=0)
+        {
+            this->to->onActionMoved();
+        }
     }
 }
 void basic_action_widget::addParameter(std::string name, point_3d_list::parameterTypes type)

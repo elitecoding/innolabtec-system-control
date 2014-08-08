@@ -14,6 +14,7 @@
 
 class basic_action_widget;
 class parameter_widget;
+class parameter_connector_widget;
 #include "parameter_dock.h"
 
 class parameter_dock_widget : public QWidget,public parameter_dock
@@ -21,6 +22,7 @@ class parameter_dock_widget : public QWidget,public parameter_dock
     Q_OBJECT
     QVBoxLayout layoutContainer;
     QLabel labelName;
+    parameter_connector_widget* connector;
 
 public:
 
@@ -29,11 +31,14 @@ public:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
 
     QSize sizeHint() const;
 
     inline void setParameter(parameter_widget* p){this->param = (point_3d_list*)p;}
     inline parameter_widget* getParameter(){return (parameter_widget*)this->param;}
+    inline void setConnector(parameter_connector_widget* c){this->connector = c;}
+    inline parameter_connector_widget* getConnector(){return this->connector;}
 
 signals:
 

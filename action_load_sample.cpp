@@ -1,6 +1,7 @@
 #include "action_load_sample.h"
 #include <iostream>
-#include <parameter_dock.h>
+#include "parameter_dock.h"
+#include "innox.h"
 
 action_load_sample::action_load_sample(QWidget* parent,action_connection_manager_iface* con):
     basic_action_widget(parent,"load sample",con)
@@ -18,12 +19,16 @@ void action_load_sample::execute()
     point_3d_list* pFrom = this->parameter["from"]->getParam();
     point_3d_list* pTo = this->parameter["from"]->getParam();
 
-    point_3d to = pTo->getParam();
+    /*point_3d to = pTo->getParam();
 
     while(pFrom->hasParameter())
     {
         point_3d curr = pFrom->getParam();
         std::cout<<"loading sample from "<<curr<<" to "<<to<<std::endl;
-    }
+    }*/
+
+
+    innox::connect();
+    innox::moveSampleTo("A","B");
 }
 

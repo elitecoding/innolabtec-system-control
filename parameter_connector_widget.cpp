@@ -15,18 +15,28 @@ void parameter_connector_widget::onActionMoved()
     QPoint upperPoint;
     QPoint lowerPoint;
 
-    if(this->widgetFrom->pos().y()<this->widgetTo->pos().y())
+    QPoint wpFrom = this->widgetFrom->pos();
+    QPoint wpTo = this->widgetTo->pos();
+
+
+    QPoint pParentTo = this->widgetTo->mapToGlobal(QPoint(0,0));
+    //pParentTo = this->mapFromGlobal(pParentTo);
+
+    QPoint pParentFrom = this->widgetFrom->mapToGlobal(QPoint(0,0));
+    //pParentFrom = this->mapFromGlobal(pParentFrom);
+
+    if(pParentFrom.y()<pParentTo.y())
     {
-        upperPoint = this->widgetFrom->pos();
-        lowerPoint = this->widgetTo->pos();
+        upperPoint = pParentFrom;
+        lowerPoint = pParentTo;
     }else
     {
-        upperPoint = this->widgetTo->pos();
-        lowerPoint = this->widgetFrom->pos();
+        upperPoint = pParentTo;
+        lowerPoint = pParentFrom;
     }
 
-    QPoint dir = this->widgetFrom->pos();
-    dir-=this->widgetTo->pos();
+    QPoint dir = pParentFrom;
+    dir -= pParentTo;
     QSize s(abs(dir.x())+60,abs(dir.y())+60);
     this->resize(s);
 
@@ -43,9 +53,19 @@ void parameter_connector_widget::onActionMoved()
         this->upperLeft = upperLeftCorner;
     }
 
-    this->move(this->upperLeft-QPoint(30,30));
+    this->move(this->parentWidget()->mapFromGlobal(this->upperLeft)-QPoint(30,30));
 
-    dir = this->widgetFrom->pos()-this->widgetTo->pos();
+    wpFrom = this->widgetFrom->pos();
+    wpTo = this->widgetTo->pos();
+
+
+    pParentTo = this->widgetTo->mapToGlobal(QPoint(0,0));
+    pParentTo = this->mapFromGlobal(pParentTo);
+
+    pParentFrom = this->widgetFrom->mapToGlobal(QPoint(0,0));
+    pParentFrom = this->mapFromGlobal(pParentFrom);
+
+    dir = pParentFrom-pParentTo;
 
 
     int px = dir.x();
@@ -56,16 +76,16 @@ void parameter_connector_widget::onActionMoved()
     dirVect.normalize();
     dirVect*=20;
     dir = dirVect.toPoint();
-    QPoint p1 = this->widgetFrom->pos()+dir;
-    QPoint p2 = this->widgetFrom->pos()-dir;
-    QPoint p3 = this->widgetTo->pos()+dir;
-    QPoint p4 = this->widgetTo->pos()-dir;
+    QPoint p1 = pParentFrom+dir;
+    QPoint p2 = pParentFrom-dir;
+    QPoint p3 = pParentTo+dir;
+    QPoint p4 = pParentTo-dir;
 
     QVector<QPoint> points;
-    points.append(this->mapFromParent(p1));
-    points.append(this->mapFromParent(p2));
-    points.append(this->mapFromParent(p4));
-    points.append(this->mapFromParent(p3));
+    points.append(p1);
+    points.append(p2);
+    points.append(p4);
+    points.append(p3);
 
 
     QPolygon poli(points);

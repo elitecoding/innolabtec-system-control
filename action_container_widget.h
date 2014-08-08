@@ -5,6 +5,7 @@
 #include "action_connector_widget.h"
 #include "parameter_connector_widget.h"
 #include "basic_action_widget.h"
+#include "parameter_widget.h"
 #include "action_connection_manager_iface.h"
 #include <list>
 #include <QPoint>

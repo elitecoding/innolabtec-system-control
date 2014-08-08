@@ -17,3 +17,7 @@ void basic_action::addParameter(parameter_dock* dock)
 {
        this->parameter[dock->getName()] = dock;
 }
+void basic_action::mouseMoveEvent(QMouseEvent * event)
+{
+
+}
