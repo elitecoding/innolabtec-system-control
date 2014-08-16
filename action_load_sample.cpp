@@ -17,18 +17,14 @@ void action_load_sample::execute()
 {
     std::cout<<"loading sample"<<std::endl;
     point_3d_list* pFrom = this->parameter["from"]->getParam();
-    point_3d_list* pTo = this->parameter["from"]->getParam();
+    point_3d_list* pTo = this->parameter["to"]->getParam();
 
-    /*point_3d to = pTo->getParam();
+    /*
+    *  point_3d to = pTo->getParam();
+    *  point_3d from = pFrom->getParam();
+    *  std::cout<<"loading sample from "<<curr<<" to "<<to<<std::endl;
+    */
 
-    while(pFrom->hasParameter())
-    {
-        point_3d curr = pFrom->getParam();
-        std::cout<<"loading sample from "<<curr<<" to "<<to<<std::endl;
-    }*/
-
-
-    innox::connect();
-    innox::moveSampleTo("A","B");
+    innox::moveSampleTo("A0","B31");
 }
 

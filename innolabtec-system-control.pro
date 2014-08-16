@@ -55,6 +55,7 @@ HEADERS  += mainwindow.h \
     parameter_dock.h \
     action_load_sample.h \
     parameter_factory.h \
-    parameter_connector_widget.h
+    parameter_connector_widget.h \
+    markable_iface.h
 
 FORMS    += mainwindow.ui

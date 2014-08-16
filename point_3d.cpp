@@ -8,7 +8,7 @@ point_3d::point_3d(double px, double py, double pz):x(px),y(py),z(pz)
 {
     std::cout<<"point_3d ctor"<<std::endl;
 }
-point_3d point_3d::getParam()
+point_3d& point_3d::getParam()
 {
     return *this;
 }

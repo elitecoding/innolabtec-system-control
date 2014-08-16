@@ -13,7 +13,7 @@ public:
     point_3d();
     point_3d(double,double,double);
 
-    point_3d getParam();
+    point_3d& getParam();
     inline double getX(){return x;}
     inline double getY(){return y;}
     inline double getZ(){return z;}

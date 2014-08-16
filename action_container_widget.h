@@ -45,6 +45,7 @@ public:
     void connect(parameter_widget*);
     void connect(parameter_dock_widget*);
     void execute();
+    void mark();
 signals:
 
 public slots:

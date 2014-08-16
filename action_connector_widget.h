@@ -7,9 +7,10 @@
 #include <QSize>
 #include <QMouseEvent>
 class basic_action_widget;
+#include "markable_iface.h"
 #include "qt_arrow.h"
 
-class action_connector_widget: public qt_arrow
+class action_connector_widget: public qt_arrow, public markable_iface
 {
 
 public:
@@ -26,6 +27,11 @@ public:
     void onActionMoved();
 
 
+
+    // markable_iface interface
+public:
+    void unmarkItem();
+    void deleteItem();
 };
 
 #endif // ACTION_CONNECTOR_WIDGET_H

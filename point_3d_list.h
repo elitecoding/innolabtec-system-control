@@ -19,7 +19,7 @@ public:
     };
 
     point_3d_list(std::string);
-    point_3d getParam();
+    point_3d& getParam();
     bool hasParameter();
     inline std::string getName(){return name;}
 

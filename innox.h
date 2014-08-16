@@ -11,11 +11,12 @@ class innox
     static QTcpSocket socket;
 public:
 
-    static void connect();
-
     static void openGripper();
     static void closeGripper();
     static void moveSampleTo(std::string from, std::string to);
+
+private:
+    static bool connect();
 
 };
 
