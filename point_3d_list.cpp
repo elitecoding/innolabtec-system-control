@@ -14,21 +14,21 @@ bool point_3d_list::hasParameter()
 point_3d& point_3d_list::getParam()
 {
 
-    point_3d front = this->pointList.front();
+    point_3d* front = this->pointList.front();
 
     if(this->type == point_3d_list::List)
     {
         if(!this->pointList.empty())
         {
-            point_3d front = this->pointList.front();
+            point_3d* front = this->pointList.front();
             this->pointList.pop();
-            return front;
+            return *front;
         }else
         {
-            return 0;
+            return *(new point_3d());
            // throw "list empty";
         }
     }
 
-    return front;
+    return *front;
 }

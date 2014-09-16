@@ -22,10 +22,11 @@ public:
     point_3d& getParam();
     bool hasParameter();
     inline std::string getName(){return name;}
+    inline void addPoint(point_3d* p){pointList.push(p);}
 
 private:
     parameterTypes type;
-    std::queue<point_3d> pointList;
+    std::queue<point_3d*> pointList;
     std::string name;
 
 };

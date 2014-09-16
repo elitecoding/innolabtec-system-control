@@ -88,3 +88,11 @@ void action_connector_widget::deleteConnection()
     this->getTo()->deleteFrom();
     delete this;
 }
+void action_connector_widget::unmarkItem()
+{
+
+}
+void action_connector_widget::deleteItem()
+{
+
+}
