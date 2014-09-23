@@ -10,7 +10,8 @@
 #include <list>
 #include <QPoint>
 #include "innox.h"
-
+#include "markable_iface.h"
+#include <QKeyEvent>
 
 class action_container_widget : public QWidget, public action_connection_manager_iface
 {
@@ -30,6 +31,8 @@ class action_container_widget : public QWidget, public action_connection_manager
 
     innox* innoxControl;
 
+    markable_iface* currentMarkedItem;
+
 public:
     explicit action_container_widget(QWidget *parent = 0);
     void attacheConnection(basic_action_widget* action);
@@ -37,6 +40,7 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     //void mouseReleaseEvent(QMouseEvent *);
+    void keyPressEvent(QKeyEvent *);
 
     //Connection Manager
     void startConnection(basic_action_widget*);
@@ -45,7 +49,8 @@ public:
     void connect(parameter_widget*);
     void connect(parameter_dock_widget*);
     void execute();
-    void mark();
+    void mark(markable_iface*);
+
 signals:
 
 public slots:

@@ -31,6 +31,11 @@ void parameter_factory::loadParameter(std::string path)
                  <<std::endl;
         std::cout<<xml.error()<<std::endl;
 
+        if(type==3)
+        {
+            break;
+        }
+
         if(xml.name() == "Rack"&&xml.tokenType()==4)
         {
             currRack=xml.attributes().value("id").toString().toStdString();
@@ -67,4 +72,6 @@ void parameter_factory::loadParameter(std::string path)
         }
 
     }
+
+    file.close();
 }

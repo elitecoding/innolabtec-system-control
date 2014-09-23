@@ -54,6 +54,7 @@ void qt_arrow::mousePressEvent(QMouseEvent *)
 {
     this->marked = true;
     this->update();
+
 }
 void qt_arrow::mouseReleaseEvent(QMouseEvent *)
 {

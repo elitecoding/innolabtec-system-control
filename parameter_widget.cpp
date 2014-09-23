@@ -1,8 +1,8 @@
 #include "parameter_widget.h"
 #include <iostream>
 
-parameter_widget::parameter_widget(std::string name,QWidget* parent,action_connection_manager_iface* con):
-    qt_parameter(name,parent),point_3d_list(name),connectionManager(con),connector(0)
+parameter_widget::parameter_widget(point_3d_list* p,QWidget* parent,action_connection_manager_iface* con):
+    qt_parameter(p->getName(),parent),parameter(p),connectionManager(con),connector(0)
 {
 
 }

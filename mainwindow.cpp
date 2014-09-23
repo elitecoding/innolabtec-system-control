@@ -9,6 +9,8 @@
 #include <QString>
 #include "parameter_dock_widget.h"
 #include "qt_parameter.h"
+#include "point_3d.h"
+#include "point_3d_list.h"
 
 /**
  * @brief Setup menu structure and factories
@@ -52,7 +54,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->runProgram,SIGNAL(triggered()),this, SLOT(onRunProgram()));
 
     this->resize(800,600);
-    this->parameterFactroy->loadParameter("");
+
+
+    point_3d_list* list = new point_3d_list("asdsa");
+    list->addPoint(new point_3d("p1",0,0,0));
+    point_3d p = list->getParam();
 
 }
 MainWindow::~MainWindow()
@@ -90,14 +96,18 @@ void MainWindow::addParameter()
     QStringList list;
     std::list<point_3d_list*> actions = *(this->parameterFactroy->getParameterList());
 
+    std::map<std::string,point_3d_list*> translate;
+
     for(std::list<point_3d_list*>::iterator it = actions.begin();it != actions.end();it++)
     {
         list.append(QString( ((point_3d_list*)(*it))->getName().c_str()));
+        translate.insert( std::pair<std::string,point_3d_list*>( ((point_3d_list*)(*it))->getName(),(point_3d_list*)(*it)) );
     }
 
     QString action = QInputDialog::getItem(this,"Select Parameter","Parameter:",list);
 
-    parameter_widget* w = new parameter_widget(action.toStdString(),this->container,this->container);
+
+    parameter_widget* w = new parameter_widget(translate.at(action.toStdString()),this->container,this->container);
 
     w->show();
 }

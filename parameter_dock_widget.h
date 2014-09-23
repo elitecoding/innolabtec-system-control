@@ -35,8 +35,8 @@ public:
 
     QSize sizeHint() const;
 
-    inline void setParameter(parameter_widget* p){this->param = (point_3d_list*)p;}
-    inline parameter_widget* getParameter(){return (parameter_widget*)this->param;}
+    inline void setParameter(point_3d_list* p){this->param = p;}
+    inline point_3d_list* getParameter(){return this->param;}
     inline void setConnector(parameter_connector_widget* c){this->connector = c;}
     inline parameter_connector_widget* getConnector(){return this->connector;}
 

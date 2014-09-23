@@ -1,14 +1,17 @@
 #include "parameter_connector_widget.h"
+#include "parameter_dock_widget.h"
+#include "parameter_widget.h"
 #include <iostream>
 
 parameter_connector_widget::parameter_connector_widget(QWidget* parent):qt_arrow(0,0,parent)
 {
 
 }
-parameter_connector_widget::parameter_connector_widget(QWidget* parent,parameter_widget* from,parameter_dock_widget* to):qt_arrow((QWidget*)from,(QWidget*)to,parent)
+parameter_connector_widget::parameter_connector_widget(QWidget* parent,action_connection_manager_iface* m,parameter_widget* from,parameter_dock_widget* to):qt_arrow((QWidget*)from,(QWidget*)to,parent),mgr(m)
 {
     std::cout<<"parameter_connector_widget ctor"<<std::endl;
     this->onActionMoved();
+
 }
 void parameter_connector_widget::onActionMoved()
 {
@@ -95,8 +98,25 @@ void parameter_connector_widget::onActionMoved()
     QRegion mask(poli);
     this->setMask(mask);
 }
+
+void parameter_connector_widget::unmarkItem()
+{
+    this->marked=false;
+    this->update();
+}
+void parameter_connector_widget::deleteItem()
+{
+    this->getTo()->setConnector(0);
+    this->getFrom()->setConnector(0);
+    delete this;
+}
+void parameter_connector_widget::mousePressEvent(QMouseEvent *e)
+{
+    this->mgr->mark(this);
+    qt_arrow::mousePressEvent(e);
+}
+
 void parameter_connector_widget::deleteConnection()
 {
-
     delete this;
 }

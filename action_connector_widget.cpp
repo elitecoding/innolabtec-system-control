@@ -12,9 +12,10 @@ action_connector_widget::action_connector_widget(QWidget* parent):qt_arrow(0,0,p
 {
 
 }
-action_connector_widget::action_connector_widget(QWidget* parent,basic_action_widget* from,basic_action_widget* to):qt_arrow((QWidget*)from,(QWidget*)to,parent)
+action_connector_widget::action_connector_widget(QWidget* parent,action_connection_manager_iface* m,basic_action_widget* from,basic_action_widget* to):qt_arrow((QWidget*)from,(QWidget*)to,parent),to(to),from(from)
 {
     std::cout<<"action_connector_widget ctor"<<std::endl;
+    this->mgr = m;
     this->onActionMoved();
 }
 void action_connector_widget::onActionMoved()
@@ -90,9 +91,17 @@ void action_connector_widget::deleteConnection()
 }
 void action_connector_widget::unmarkItem()
 {
-
+    this->marked=false;
+    this->update();
 }
 void action_connector_widget::deleteItem()
 {
-
+    this->getFrom()->deleteTo();
+    this->getTo()->deleteFrom();
+    delete this;
+}
+void action_connector_widget::mousePressEvent(QMouseEvent *e)
+{
+    this->mgr->mark(this);
+    qt_arrow::mousePressEvent(e);
 }

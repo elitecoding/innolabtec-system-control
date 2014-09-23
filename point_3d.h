@@ -7,12 +7,14 @@
 
 class point_3d : public action_param_iface<point_3d>
 {
-    std::string name;
+
     double x;
     double y;
     double z;
 
+
 public:
+    std::string myName;
     point_3d();
     point_3d(std::string,double,double,double);
 
@@ -20,7 +22,7 @@ public:
     inline double getX(){return x;}
     inline double getY(){return y;}
     inline double getZ(){return z;}
-    inline std::string getName(){return name;}
+    inline std::string getName() const {return myName;}
     void print(std::ostream &) const;
 };
 

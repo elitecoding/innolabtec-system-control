@@ -12,6 +12,7 @@
 #include "parameter_factory.h"
 #include "action_container_widget.h"
 #include <list>
+#include <map>
 
 namespace Ui {
 class MainWindow;

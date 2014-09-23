@@ -4,10 +4,12 @@
 #include <iostream>
 
 action_container_widget::action_container_widget(QWidget *parent) :
-    QWidget(parent),pendingConnection(0),pendingParameter(0)
+    QWidget(parent),pendingConnection(0),pendingParameter(0),currentMarkedItem(0)
 {
     this->drawConnection = false;
     this->connectionStarted = false;
+    this->activateWindow();
+    this->grabKeyboard();
 
     /*
     basic_action_widget* action = new basic_action_widget(this,"Action 1",this);
@@ -18,6 +20,35 @@ action_container_widget::action_container_widget(QWidget *parent) :
     */
 
 }
+void action_container_widget::keyPressEvent(QKeyEvent * k)
+{
+    std::cout<<"key press: "<<k->key()<<std::endl;
+
+    if(k->key() == 16777223) //Entf
+    {
+        if(this->currentMarkedItem!=0)
+        {
+            this->currentMarkedItem->deleteItem();
+            this->currentMarkedItem = 0;
+        }
+    }
+}
+
+void action_container_widget::mark(markable_iface* m)
+{
+    if(this->currentMarkedItem!=0)
+    {
+        if(this->currentMarkedItem!=m)
+        {
+            this->currentMarkedItem->unmarkItem();
+        }
+
+
+    }
+
+    this->currentMarkedItem = m;
+}
+
 void action_container_widget::paintEvent(QPaintEvent *)
 {
     QPainter paint(this);
@@ -98,7 +129,7 @@ void action_container_widget::stopConnection(basic_action_widget* to)
         /* Next pointer is not used... */
         this->pendingConnection->setNext(to);
 
-        action_connector_widget* con = new action_connector_widget(this,this->pendingConnection,to);
+        action_connector_widget* con = new action_connector_widget(this,this,this->pendingConnection,to);
         to->setFrom(con);
         this->pendingConnection->setTo(con);
 
@@ -145,7 +176,7 @@ void action_container_widget::connect(parameter_dock_widget* param)
 {
     if(connectionStarted && pendingParameter!=0)
     {
-        param->setParameter(pendingParameter);
+        param->setParameter(pendingParameter->getParam());
 
         parameter_dock_widget* p = param;
         parameter_dock* d = p;
@@ -153,7 +184,7 @@ void action_container_widget::connect(parameter_dock_widget* param)
         parameter_dock_widget* p2 = (parameter_dock_widget*)d;
         QWidget* w2 = (QWidget*)p2;
 
-        parameter_connector_widget* con = new parameter_connector_widget(this,pendingParameter,param);
+        parameter_connector_widget* con = new parameter_connector_widget(this,this,pendingParameter,param);
         param->setConnector(con);
         pendingParameter->setConnector(con);
         con->show();
@@ -173,11 +204,14 @@ void action_container_widget::execute()
     for(iter = this->connections.begin();iter != this->connections.end();iter++)
     {
         action_connector_widget* con = (action_connector_widget*)(*iter);
-        if(con->getFrom()->getFrom() == 0)
+        if(con->getFrom()!=0)
         {
-            std::cout<<"Entry point found: "<<con->getFrom()->getName()<<std::endl;
-            entry=con->getFrom();
-            break;
+            if(con->getFrom()->getFrom() == 0)
+            {
+                std::cout<<"Entry point found: "<<con->getFrom()->getName()<<std::endl;
+                entry=con->getFrom();
+                break;
+            }
         }
     }
     if(entry == 0)

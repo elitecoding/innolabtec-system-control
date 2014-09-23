@@ -1,9 +1,10 @@
 #include "point_3d_list.h"
 #include <iostream>
 
-point_3d_list::point_3d_list(std::string n):name(n)
+point_3d_list::point_3d_list(std::string n):name(n),type(List),pointList()
 {
     std::cout<<"point_3d_list ctor"<<std::endl;
+    std::cout<<"name: "<<this->getName()<<std::endl;
 }
 
 bool point_3d_list::hasParameter()
@@ -25,8 +26,8 @@ point_3d& point_3d_list::getParam()
             return *front;
         }else
         {
-            return *(new point_3d());
-           // throw "list empty";
+            //return *(new point_3d());
+            throw "list empty";
         }
     }
 

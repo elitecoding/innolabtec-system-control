@@ -10,7 +10,7 @@ basic_action::basic_action()
 }
 basic_action::basic_action(std::string n,action_connection_manager_iface* mgr):name(n),next(0),conManager(mgr),parameter()
 {
-    std::cout<<"basic_action ctor. Name: "<<name<<" Instance count: "<<instanceCount<<std::endl;
+    std::cout<<"basic_action ctor. Name: "<<this->getName()<<" Instance count: "<<instanceCount<<std::endl;
     instanceCount++;
 }
 void basic_action::addParameter(parameter_dock* dock)
