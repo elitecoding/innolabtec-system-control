@@ -55,11 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->resize(800,600);
 
-
-    point_3d_list* list = new point_3d_list("asdsa");
-    list->addPoint(new point_3d("p1",0,0,0));
-    point_3d p = list->getParam();
-
 }
 MainWindow::~MainWindow()
 {

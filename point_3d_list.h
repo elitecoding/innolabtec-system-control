@@ -22,6 +22,7 @@ public:
     point_3d& getParam();
     bool hasParameter();
     inline std::string getName(){return name;}
+    inline void setType(parameterTypes t){type=t;}
     inline void addPoint(point_3d* p){pointList.push(p);}
 
 private:

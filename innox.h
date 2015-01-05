@@ -6,6 +6,7 @@
 
 class innox
 {
+    Q_OBJECT
 
     static const int port = 7787;
     static QTcpSocket socket;

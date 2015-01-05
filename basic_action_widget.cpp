@@ -63,6 +63,7 @@ void basic_action_widget::addParameter(std::string name, point_3d_list::paramete
 {
     parameter_dock_widget* dock = new parameter_dock_widget(this,name);
     this->addParameterDock(dock);
+    //dock->getParam()->setType(type);
     basic_action::addParameter(dock);
 }
 
